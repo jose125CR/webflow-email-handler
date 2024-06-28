@@ -8,6 +8,13 @@ const { SuccessResponseObject } = require('../common/http');
 const formNameKey = 'herso-form-name';
 const r = Router();
 
+
+const formatText = (key) => {
+  if(!key) return '';
+  const cleanedKey = key.replace(/-_/gi, " ");
+  return _.capitalize(cleanedKey)
+}
+
 const gmailTransporter = nodemailer.createTransport({
     service: "Gmail",
     host: "smtp.gmail.com",
@@ -42,7 +49,7 @@ r.post('/', upload.any(), async (req, res) => {
     .map(([key, value]) => {
     const buffer = Buffer.from(key, 'latin1');
     const correctedText = buffer.toString('utf8');
-    return (`<li><b>${correctedText}:</b> ${value}</li>`)
+    return (`<li><b>${formatText(correctedText)}:</b> ${value}</li>`)
 
   })
 
