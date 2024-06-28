@@ -29,6 +29,8 @@ const gmailTransporter = nodemailer.createTransport({
 r.post('/', upload.any(), async (req, res) => {
   const formData = req.body;
   const reqFiles = req.files;
+  const fields = Object.entries(formData)
+  const formName = fields[formNameKey];
 
   const filesToSent = reqFiles?.map((file) => {
     const base64Format = Buffer.from(file.buffer, 'ascii').toString('base64')
@@ -38,11 +40,6 @@ r.post('/', upload.any(), async (req, res) => {
           encoding: 'base64'
         }
   })
-
-  const fields = Object.entries(formData)
-
-  console.log({formData, fields})
-  const formName = _.get(fields, formNameKey)
 
   const list = fields
     .filter(([key]) => key !== formNameKey)
