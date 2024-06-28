@@ -30,7 +30,7 @@ r.post('/', upload.any(), async (req, res) => {
   const formData = req.body;
   const reqFiles = req.files;
   const fields = Object.entries(formData)
-  const formName = fields[formNameKey];
+  const formName = _.get(formData, formNameKey);
 
   const filesToSent = reqFiles?.map((file) => {
     const base64Format = Buffer.from(file.buffer, 'ascii').toString('base64')
