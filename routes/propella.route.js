@@ -11,7 +11,7 @@ const r = Router();
 
 const formatText = (key) => {
   if(!key) return '';
-  const cleanedKey = key.replace(/-_/gi, " ");
+  const cleanedKey = key.replace(/[-_]/gi, " ");
   return _.capitalize(cleanedKey)
 }
 
