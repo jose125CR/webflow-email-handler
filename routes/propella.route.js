@@ -35,6 +35,7 @@ r.post('/', upload.any(), async (req, res) => {
   const fields = Object.entries(formData)
 
   console.log({formData, fields})
+  const formName = _.get(fields, formNameKey)
 
   const list = fields
     .filter(([key]) => key !== formNameKey)
@@ -48,9 +49,9 @@ r.post('/', upload.any(), async (req, res) => {
   const shouldSentFiles = _.size(filesToSent) > 0
 
   const info = await gmailTransporter.sendMail({
-    from: '"Maddison Foo Koch 👻" <kiimjohamorales5@gmail.com>',
+    from: '"Un nuevo formulario desde Webflow" <kiimjohamorales5@gmail.com>',
     to: "ol125@hotmail.es",
-    subject: "Hello ✔",
+    subject: `Nombre del formulario ${formName}`,
     text: "Hello world?",
     html: `<ul>${list.join('')}</ul>`,
     ...shouldSentFiles ?  {attachments: filesToSent} : {}
